@@ -1,12 +1,15 @@
-<<<<<<< HEAD
-<img width="1259" height="367" alt="OWN-Audio preview" src="https://github.com/user-attachments/assets/8ea48c0c-2377-428b-9b81-f065bf96c414" />
+<img width="1258" height="365" alt="CleanShot 2025-12-17 at 00 03 12" src="https://github.com/user-attachments/assets/f7aba4b1-6f4c-4893-bb18-a9d0e0864d8f" />
 
 # OWN-Audio
-Audio-to-Knowledge web app: **transcribe**, **summarize**, generate a **mind map**, and learn with an **AI tutor** grounded in your audio — with support for **19 languages**.
+Turn audio into study-ready knowledge: **transcript → summary → mind map → tutor**.  
 
 ## Demo (video)
 
-https://github.com/user-attachments/assets/7b9c9e9e-1557-437c-bcc5-ba2558a95855
+
+
+https://github.com/user-attachments/assets/51cada1b-fd8c-4dde-bda9-475f0fcf7a10
+
+
 
 
 
@@ -31,6 +34,4 @@ https://github.com/user-attachments/assets/7b9c9e9e-1557-437c-bcc5-ba2558a95855
 2. Set the GEMINI_API_KEY in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    npm run dev
-=======
-# OWN_Audio
->>>>>>> 8c4148cc78edcb2261d85c7111f4a5764e630e32
+
