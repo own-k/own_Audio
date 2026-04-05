@@ -4,8 +4,6 @@
 
 
 
-https://github.com/user-attachments/assets/51cada1b-fd8c-4dde-bda9-475f0fcf7a10
-
 # OWN-Audio
 Turn audio into study-ready knowledge: **transcript → summary → mind map → tutor**.  
 
@@ -23,6 +21,10 @@ Turn audio into study-ready knowledge: **transcript → summary → mind map →
    - summary
    - mind map
    - tutor responses (grounded in the transcript)
+  
+
+
+https://github.com/user-attachments/assets/51cada1b-fd8c-4dde-bda9-475f0fcf7a10
 
 ## Getting started
 1. Install dependencies:
