@@ -1,17 +1,13 @@
 <img width="1258" height="365" alt="CleanShot 2025-12-17 at 00 03 12" src="https://github.com/user-attachments/assets/f7aba4b1-6f4c-4893-bb18-a9d0e0864d8f" />
 
-# OWN-Audio
-Turn audio into study-ready knowledge: **transcript → summary → mind map → tutor**.  
-
 ## Demo (video)
 
 
 
 https://github.com/user-attachments/assets/51cada1b-fd8c-4dde-bda9-475f0fcf7a10
 
-
-
-
+# OWN-Audio
+Turn audio into study-ready knowledge: **transcript → summary → mind map → tutor**.  
 
 ## What you can do
 - Upload or record audio
