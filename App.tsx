@@ -16,7 +16,7 @@ const App: React.FC = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Load persistence
+
   useEffect(() => {
     const saved = localStorage.getItem('own_audio_messages');
     if (saved) {
@@ -36,7 +36,7 @@ const App: React.FC = () => {
     setIsLoaded(true);
   }, []);
 
-  // Save persistence
+
   useEffect(() => {
       if (!isLoaded) return;
       const toSave = messages.map(({ audioBlob, ...rest }) => rest);
@@ -47,23 +47,44 @@ const App: React.FC = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
-  const processRecording = async (messageId: string, blob: Blob, language: string = "English") => {
-    try {
-      setMessages(prev => prev.map(m => m.id === messageId ? { ...m, status: MessageStatus.Transcribing } : m));
-      const transcript = await transcribeAudio(blob, language);
-      
-      setMessages(prev => prev.map(m => m.id === messageId ? { ...m, transcriptText: transcript, status: MessageStatus.Analyzing } : m));
+  const processRecording = async (
+  messageId: string,
+  blob: Blob,
+  language: string = DEFAULT_LANGUAGE
+) => {
+  setMessages(prev =>
+    prev.map(m =>
+      m.id === messageId ? { ...m, status: MessageStatus.Transcribing } : m
+    )
+  );
 
-      const analysis = await analyzeTranscript(transcript, language);
-      
-      setMessages(prev => prev.map(m => m.id === messageId ? { ...m, analysis, status: MessageStatus.Ready } : m));
+  try {
+    const transcript = await transcribeAudio(blob, language);
+    setMessages(prev =>
+      prev.map(m =>
+        m.id === messageId
+          ? { ...m, transcriptText: transcript, status: MessageStatus.Analyzing }
+          : m
+      )
+    );
 
-    } catch (error) {
-      console.error("Processing failed", error);
-      setMessages(prev => prev.map(m => m.id === messageId ? { ...m, status: MessageStatus.Failed } : m));
-    }
-  };
-
+    const analysis = await analyzeTranscript(transcript, language);
+    setMessages(prev =>
+      prev.map(m =>
+        m.id === messageId
+          ? { ...m, analysis, status: MessageStatus.Ready }
+          : m
+      )
+    );
+  } catch (error) {
+    console.error('Processing failed', error);
+    setMessages(prev =>
+      prev.map(m =>
+        m.id === messageId ? { ...m, status: MessageStatus.Failed } : m
+      )
+    );
+  }
+};
   const handleRecordingComplete = (blob: Blob, duration: number, language: string) => {
     const newMessage: ScribeMessage = {
       id: Date.now().toString(),
@@ -91,27 +112,29 @@ const App: React.FC = () => {
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
+  const file = e.target.files?.[0];
+  if (!file) {
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    return;
+  }
 
-      const blob = new Blob([file], { type: file.type });
-      const defaultLanguage = "English";
+  const blob = new Blob([file], { type: file.type });
 
-      const newMessage: ScribeMessage = {
-        id: Date.now().toString(),
-        title: file.name.replace(/\.[^/.]+$/, ""),
-        createdAt: new Date().toISOString(),
-        durationSec: 0, 
-        status: MessageStatus.Saved,
-        audioBlob: blob,
-        chatHistory: [],
-        language: defaultLanguage
-      };
-
-      setMessages(prev => [newMessage, ...prev]);
-      processRecording(newMessage.id, blob, defaultLanguage);
-      if (fileInputRef.current) fileInputRef.current.value = "";
+  const newMessage: ScribeMessage = {
+    id: Date.now().toString(),
+    title: file.name.replace(/\.[^/.]+$/, ''),
+    createdAt: new Date().toISOString(),
+    durationSec: 0,
+    status: MessageStatus.Saved,
+    audioBlob: blob,
+    chatHistory: [],
+    language: DEFAULT_LANGUAGE,
   };
+
+  setMessages(prev => [newMessage, ...prev]);
+  processRecording(newMessage.id, blob, DEFAULT_LANGUAGE);
+  if (fileInputRef.current) fileInputRef.current.value = '';
+};
 
   const triggerFileUpload = () => {
       fileInputRef.current?.click();
@@ -164,12 +187,12 @@ const App: React.FC = () => {
             {/* Main Content */}
             <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8">
               
-              {selectedMessageId ? (
-                 <DetailView 
-                    message={messages.find(m => m.id === selectedMessageId)!} 
-                    onBack={resetView} 
-                    onUpdateChat={updateChatHistory} 
-                 />
+                {selectedMessageId && selectedMessage ? (
+                  <DetailView
+                    message={selectedMessage}
+                    onBack={resetView}
+                    onUpdateChat={updateChatHistory}
+                  />
               ) : isRecordingMode ? (
                   <div>
                       <div className="flex justify-between items-center mb-6 px-2">
