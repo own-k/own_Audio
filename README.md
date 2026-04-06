@@ -7,7 +7,7 @@
 
 Audio-to-knowledge pipeline. Record or import audio, extract structured summaries, generate mind maps, and query content through a context-aware AI tutor. Recordings stored locally on-device.
 
-(https://github.com/user-attachments/assets/51cada1b-fd8c-4dde-bda9-475f0fcf7a10)
+https://github.com/user-attachments/assets/51cada1b-fd8c-4dde-bda9-475f0fcf7a10
 
 ---
 
